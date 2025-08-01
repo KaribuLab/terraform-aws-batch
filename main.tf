@@ -83,7 +83,7 @@ resource "aws_security_group" "batch" {
 }
 
 resource "aws_batch_compute_environment" "batch" {
-  compute_environment_name = "${var.name}-env"
+  name = "${var.name}-env"
   compute_resources {
     max_vcpus = var.max_vcpus
     security_group_ids = [
