@@ -38,6 +38,7 @@ module "batch" {
 | job_command       | Comando a ejecutar en el contenedor                          | list(string)   | Sí        |
 | ecr_repository_url| URL del repositorio ECR con la imagen del contenedor         | string         | Sí        |
 | job_policy        | Documento de política IAM para los trabajos                  | string         | Sí        |
+| job_privileged    | Ejecutar contenedores con privilegios elevados               | bool           | No        |
 | job_environment   | Variables de entorno para los trabajos                       | list(map(string)) | No     |
 | common_tags       | Etiquetas a aplicar a todos los recursos                     | map(any)       | Sí        |
 
