@@ -39,11 +39,6 @@ variable "job_policy" {
   type = string
 }
 
-variable "job_privileged" {
-  type = bool
-  default = false
-}
-
 variable "ecr_repository_url" {
   type = string
 }

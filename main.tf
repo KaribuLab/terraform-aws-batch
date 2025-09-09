@@ -161,7 +161,6 @@ resource "aws_batch_job_definition" "batch" {
       { type = "MEMORY", "value" = tostring(var.job_memory) }
     ],
     executionRoleArn = "${aws_iam_role.ecs_task_execution_role.arn}"
-    privileged       = var.job_privileged
   })
   tags = var.common_tags
 }
