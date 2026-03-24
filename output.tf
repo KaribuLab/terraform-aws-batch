@@ -13,3 +13,7 @@ output "job_definition_arn" {
 output "job_queue_arn" {
   value = aws_batch_job_queue.batch.arn
 }
+
+output "security_group_id" {
+  value = aws_security_group.batch.id
+}

@@ -1,6 +1,6 @@
 # terraform-aws-batch
 
-Este módulo de Terraform permite crear y configurar entornos de AWS Batch con Fargate para la ejecución de trabajos en contenedores.
+Este módulo de Terraform permite crear y configurar entornos de AWS Batch con Fargate para la ejecución de trabajos en contenedores, incluyendo la salida del security group creado para el entorno.
 
 ## Uso básico
 
@@ -49,6 +49,7 @@ module "batch" {
 | job_queue_name      | Nombre de la cola de trabajos creada             |
 | job_definition_arn  | ARN de la definición de trabajo creada           |
 | job_queue_arn       | ARN de la cola de trabajos creada                |
+| security_group_id   | ID del security group creado para AWS Batch      |
 
 ## Recursos creados
 
