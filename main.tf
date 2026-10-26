@@ -162,5 +162,14 @@ resource "aws_batch_job_definition" "batch" {
     ],
     executionRoleArn = "${aws_iam_role.ecs_task_execution_role.arn}"
   })
+
+  # Timeout opcional: AWS Batch termina el intento si supera attempt_duration_seconds
+  dynamic "timeout" {
+    for_each = var.job_timeout == null ? [] : [var.job_timeout]
+    content {
+      attempt_duration_seconds = timeout.value
+    }
+  }
+
   tags = var.common_tags
 }

@@ -39,7 +39,29 @@ module "batch" {
 | ecr_repository_url| URL del repositorio ECR con la imagen del contenedor         | string         | Sí        |
 | job_policy        | Documento de política IAM para los trabajos                  | string         | Sí        |
 | job_environment   | Variables de entorno para los trabajos                       | list(map(string)) | No     |
+| job_timeout       | Tiempo máximo de ejecución de cada intento del job, en segundos (mínimo 60). Si se omite, el job no tiene timeout | number | No |
 | common_tags       | Etiquetas a aplicar a todos los recursos                     | map(any)       | Sí        |
+
+### Timeout del job
+
+La variable `job_timeout` configura el bloque `timeout` de la definición de trabajo de AWS Batch (`attempt_duration_seconds`). Cuando un intento del job supera ese tiempo, AWS Batch lo termina y lo marca como `FAILED` con el motivo `Job attempt duration exceeded timeout`.
+
+Consideraciones:
+
+- El valor mínimo aceptado por AWS Batch es 60 segundos. El módulo valida esto en `terraform plan`.
+- El timeout aplica por intento, no al job completo. Si se configuran reintentos, cada intento tiene su propio límite.
+- Por defecto es `null`, lo que mantiene el comportamiento anterior: el job puede ejecutarse sin límite de tiempo.
+- El timeout puede sobreescribirse al enviar un job con `aws batch submit-job --timeout attemptDurationSeconds=...`.
+
+```hcl
+module "batch" {
+  source = "github.com/KaribuLab/terraform-aws-batch"
+
+  # ... resto de variables ...
+
+  job_timeout = 3600 # 1 hora
+}
+```
 
 ## Salidas
 

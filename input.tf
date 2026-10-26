@@ -19,7 +19,7 @@ variable "job_vcpu" {
 }
 
 variable "job_environment" {
-  type = list(map(string))
+  type    = list(map(string))
   default = []
 }
 
@@ -41,4 +41,15 @@ variable "job_policy" {
 
 variable "ecr_repository_url" {
   type = string
+}
+
+variable "job_timeout" {
+  type        = number
+  description = "Tiempo máximo de ejecución de cada intento del job en segundos (mínimo 60). Si es null, el job no tiene timeout."
+  default     = null
+
+  validation {
+    condition     = var.job_timeout == null || try(var.job_timeout >= 60, false)
+    error_message = "job_timeout debe ser null o un número mayor o igual a 60 segundos (mínimo exigido por AWS Batch)."
+  }
 }
